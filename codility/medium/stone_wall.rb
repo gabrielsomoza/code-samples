@@ -1,3 +1,5 @@
+#
+# StoneWall - Codility
 # Link: https://codility.com/demo/results/demoY22QD9-H6S/
 #
 # === RESULTS ===
@@ -12,12 +14,10 @@ def solution(h)
   blocks = 0
   (1...n).each { |y|
     if h[y] != stack.last
-      if h[y] < stack.last
-        while !stack.empty? && h[y] < stack.last
-          stack.pop
-          blocks += 1
-        end
-      end # if
+      while !stack.empty? && h[y] < stack.last
+        stack.pop
+        blocks += 1
+      end
       stack << h[y] unless stack.last == h[y]
     end # != last
   }
