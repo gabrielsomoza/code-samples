@@ -1,0 +1,37 @@
+#!/usr/bin/ruby
+def separate(graph, start)
+  visited = {start => true}
+  group1 = {start => true}
+  group2 = {}
+  q = [start]
+  while !q.empty? do
+    u = q.pop
+    graph[u].each_key do |v|
+      unless visited[v]
+        visited[v] = true
+        group1[v] = true if group2[u]
+        group2[v] = true if group1[u]
+        q.push(v)
+      end
+    end
+  end
+  return [group1,group2]
+end
+
+file = File.open(ARGV.first)
+@total_veterans = file.readline.to_i 
+@data = {}
+start = nil
+@total_veterans.times do
+  line = file.readline
+  all, name, num = /(\w*)\s*(\d*)/.match(line).to_a
+  @data[name] ||= {}
+  start = name
+  num.to_i.times do
+    accused = file.readline.gsub("\n", '')
+    @data[accused] ||= {}
+    @data[name][accused] = @data[accused][name] = true
+  end
+end
+smaller, bigger= separate(@data, start).map{|g| g.size}.sort
+puts "#{bigger} #{smaller}"

@@ -1,0 +1,61 @@
+#!/usr/bin/ruby
+
+class Integer
+  def double_squares
+    return 1 if self < 3
+    used = []
+    combinations = 0
+    
+    hi = self.closest_square
+    
+    max = Math.sqrt(hi).to_i
+    min = (max/2).ceil
+    
+    if hi == self
+      combinations += 1
+      used << Math.sqrt(hi)
+      used << 0
+      max -= 1
+    end
+    
+    for i in min..max
+      n = max + min - i #reversing n from max..min
+      if !used.include?(n)
+        hi = n ** 2
+        low = self - hi
+        if low.perfect_square?
+          combinations += 1 #being hi^2+low^2
+          used << n
+          used << Math.sqrt(low)
+        end
+      end
+    end
+    
+    combinations
+  end
+  
+  def closest_square(allow_self = true)
+    return self if self <= 1 #only exception for allow_self
+    
+    cs = Math.sqrt(self).floor ** 2
+    if !allow_self && cs == self 
+      cs = (self - 1).closest_square
+    end
+    cs
+  end
+  
+  def perfect_square?
+    return true if self <= 1
+    rt = Math.sqrt(self)
+    rt - rt.floor == 0
+  end
+  
+end
+
+file = File.open(ARGV.first)
+count = file.readline.to_i
+n = 0
+for i in 1..count
+  n = file.readline.to_i
+  puts n.double_squares
+end
