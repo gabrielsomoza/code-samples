@@ -1,5 +1,5 @@
 #
-# BaseNeg2OfInt - Codility
+# Task Name: QmFzZU5lZzJPZkludA==
 #
 # === RESULTS ===
 # Used time: 31 minutes

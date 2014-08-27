@@ -1,5 +1,5 @@
 #
-# AssymetryIndex - Codility
+# Task Name: QXNzeW1ldHJ5SW5kZXg=
 #
 # === RESULTS ===
 # Used time: 45 minutes
@@ -32,6 +32,7 @@ end
 #
 # === RESULTS ===
 # Score: 100/100
+# Complexity: O(N)
 #
 def solution(x, a)
     res = a.length - a.select{|i| i == x}.length
